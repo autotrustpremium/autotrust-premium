@@ -2910,7 +2910,30 @@ cambiarEstadoVehiculo=async function(id,estado){if(!await atRequire()||!['Dispon
 hacerFotoPrincipal=async function(id,i){if(!await atRequire())return;const c=cars.find(x=>x.id===id);if(!c||!c.photos[i])return;const fotos=[...c.photos];fotos.unshift(fotos.splice(i,1)[0]);if(await atWrite(id,{fotos}))administrarFotos(id);};
 eliminarFotoVehiculo=async function(id,i){if(!await atRequire())return;const c=cars.find(x=>x.id===id);if(!c||c.photos.length<=1)return alert('Debe quedar al menos una fotografía.');if(!confirm('¿Quitar esta fotografía del catálogo?'))return;const fotos=c.photos.filter((_,j)=>j!==i);if(await atWrite(id,{fotos}))administrarFotos(id);};
 importData=async function(){alert('La importación masiva está deshabilitada en la versión en línea. Publica los vehículos desde el formulario.');};
-/* WhatsApp y tipo de cambio se mantienen como ajustes locales hasta configurar una tabla de ajustes. */
-window.addEventListener('load',atRefresh);
+/* Configuración compartida: Supabase es la fuente de verdad en todos los dispositivos. */
+async function atLoadConfig(){
+  if(!atDB)return;
+  const {data,error}=await atDB.from('configuracion').select('whatsapp,tipo_cambio').eq('id',1).maybeSingle();
+  if(error){console.error('Error al leer configuración:',error);return;}
+  if(data){
+    config.whatsapp=String(data.whatsapp||'').replace(/\D/g,'');
+    config.exchange=Number(data.tipo_cambio)>0?Number(data.tipo_cambio):3.75;
+    render();
+  }
+}
+saveSettings=async function(){
+  if(!await atRequire())return;
+  const r=Number(document.getElementById('rate')?.value);
+  const wa=String(document.getElementById('wa')?.value||'').replace(/\D/g,'');
+  if(!Number.isFinite(r)||r<=0)return alert('Ingresa un tipo de cambio válido.');
+  if(wa && !/^51\d{9}$/.test(wa))return alert('Ingresa tu WhatsApp con el formato 51 seguido de 9 dígitos.');
+  const {data,error}=await atDB.from('configuracion').update({whatsapp:wa,tipo_cambio:r}).eq('id',1).select('id');
+  if(error)return alert('No se pudo guardar en Supabase: '+error.message);
+  if(!data?.length)return alert('Supabase no confirmó el cambio. Revisa los permisos de configuración.');
+  config.whatsapp=wa;config.exchange=r;
+  render();await adminHome();
+  alert('Configuración guardada para todos los dispositivos.');
+};
+window.addEventListener('load',async()=>{await atLoadConfig();await atRefresh();});
 </script>
 </body></html>
