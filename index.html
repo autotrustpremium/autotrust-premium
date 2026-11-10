@@ -137,6 +137,40 @@ button,.btn{background:linear-gradient(180deg,#f5d58a,#c99336);border:1px solid 
 .aviso-parte-pago {
   font-size: 12px;
 }
+
+/* AutoTrust 2026: actualización visual, accesibilidad y respuesta móvil */
+:root{--gold:#f1bf60;--line:#665033;--panel:#15191d;--muted:#c4c5c6}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{background:radial-gradient(ellipse at 80% 4%,#172b34 0%,transparent 35%),radial-gradient(ellipse at 8% 58%,#272014 0%,transparent 43%),#090c0f;color:#f6f6f3}
+header{background:#0b1116f2;border-bottom:1px solid #ac8246;box-shadow:0 8px 30px #0009}
+.topbar{background:#0b141b!important;color:#d9e1e3!important}
+.hero{border-bottom-color:#dba653!important}
+.hero-inner{background:linear-gradient(90deg,#050708ad,transparent);border-radius:16px}
+.premium-strip{background:linear-gradient(90deg,#12222a,#0b1015,#2b2116)!important}
+.vehicle{background:linear-gradient(150deg,#182129,#111418);border-color:#79623d;box-shadow:0 8px 25px #0008}
+.vehicle:hover{border-color:#f1bf60;transform:translateY(-4px)}
+.vehicle img{transition:transform .3s ease}.vehicle:hover img{transform:scale(1.025)}
+.feature{background:linear-gradient(135deg,#17232a,#141516);border-color:#75603f}
+input,select,textarea{background:#172029;color:#fff;border-color:#5b6770}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #73d7e5;outline-offset:3px}
+button:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.4)}
+.dialog{background:#121a21;border-color:#79613c;box-shadow:0 20px 70px #000c}
+.admin-row{background:#1b2831}
+@media(max-width:900px){header{gap:12px}nav{gap:8px}nav button{padding:10px;font-size:12px}.filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){header{padding:12px 14px}.logo{font-size:21px}.logo-car{font-size:39px}.logo-word small{font-size:7px}.filters{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.filters input,.filters select{min-width:0;font-size:13px;padding:11px 8px}.filters button{grid-column:1/-1}.hero{min-height:460px!important}.hero h1{font-size:clamp(35px,9vw,48px)!important}.hero-inner{max-width:100%}.card-actions{flex-wrap:wrap}.card-actions button{min-width:43%}.premium-strip{gap:3px}.premium-strip small{line-height:1.35}.dialog{max-height:94dvh}.admin-row{overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+
+/* AutoTrust integral: panel, botones y navegación móvil */
+.card-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.card-actions button{min-width:0;white-space:normal;line-height:1.25}
+.card-actions button:last-child:nth-child(3){grid-column:1/-1}
+.vehicle-body{display:flex;flex-direction:column;min-height:240px}
+.vehicle-body .card-actions{margin-top:auto;padding-top:16px}
+.vehicle img{display:block;object-position:center}
+.checkout-alert{line-height:1.65}
+.admin-list .admin-row{border:1px solid #344a53}
+.admin-row select{width:auto;max-width:100%;min-width:140px}
+@media(max-width:600px){.card-actions{grid-template-columns:1fr 1fr}.card-actions button{font-size:12px;padding:11px 6px}.admin-row select{width:100%}.purchase-options{grid-template-columns:1fr}.detail-specs{grid-template-columns:1fr 1fr}}
 </style></head><body><div class="topbar">VDX LUXURY AUTO HUB E.I.R.L.   ·   Compra y venta de vehículos</div><header><a class="logo" href="#inicio"><span class="logo-car">⌁</span><span class="logo-word">Auto<em>Trust</em><small>TU CONFIANZA NOS MUEVE</small></span></a><nav><a href="#inicio">Inicio</a><a href="#catalogo">Vehículos</a><a href="#nosotros">Servicios</a><a href="#catalogo">Comprar online</a><a href="#nosotros">Nosotros</a><button class="outline" onclick="openAdmin()">⚙ Administrar</button></nav></header><section class="hero" id="inicio"><div class="hero-inner"><div class="eyebrow">COMPRA, RESERVA Y CONDUCE</div><h1>EL VEHÍCULO IDEAL <em>PARA TI</em></h1><p>Autos confiables, atención personalizada y una experiencia exclusiva de compra con AutoTrust.</p><a class="btn" href="#catalogo">Ver vehículos  →</a><a class="btn btn-ghost" href="#catalogo">Comprar o reservar</a></div></section><div class="premium-strip"><div><b>♢ Compra con confianza</b><small>Atención personalizada</small></div><div><b>▣ Reserva tu vehículo</b><small>Solicitud desde S/ 500</small></div><div><b>↗ Compra en línea</b><small>Solicita la compra completa</small></div><div><b>✦ Selección premium</b><small>Vehículos nuevos y seminuevos</small></div></div><main class="container" id="catalogo"><div class="heading"><div><div class="eyebrow">DESCUBRE NUESTRA SELECCIÓN</div><h2>Vehículos destacados</h2><div class="muted" id="count"></div></div><button class="outline" onclick="resetFilters()">Limpiar filtros</button></div><div class="filters"><input id="search" oninput="render()" placeholder="Buscar marca o modelo..."/><select id="brand" onchange="render()"><option value="">Todas las marcas</option></select><select id="condition" onchange="render()"><option value="">Nuevo y seminuevo</option><option>Nuevo</option><option>Seminuevo</option></select>
 <input id="precioMin" type="number" min="0"
   placeholder="Precio mínimo US$"
@@ -304,7 +338,6 @@ function render() {
     font-weight:bold;
     cursor:pointer;">
   ⚖️ Comparar
-</button>
 </button>
 ${(c.status || "Disponible") === "Disponible"
                 ? `<button class="outline"
@@ -2026,9 +2059,29 @@ function checkout(id){
   }
 
   checkoutCar = id;
-;closeModal('detailModal');document.getElementById('checkoutContent').innerHTML=`<p><b>${esc(c.brand)} ${esc(c.model)} ${esc(c.year)}</b> · ${usd(c.price)} / aprox. ${pen(c.price)}</p><div class="purchase-options"><div class="purchase-choice"><h3>Reservar</h3><p>Separación referencial: <b>S/ 500</b></p><small>El saldo se coordina con AutoTrust.</small></div><div class="purchase-choice"><h3>Compra completa</h3><p><b>${usd(c.price)}</b></p><small>Solicitud para pagar el valor total.</small></div></div><div class="checkout-alert"><b>Versión de prueba: no se procesan ni cobran pagos.</b> Al continuar registrarás una solicitud local. No ingreses datos de tarjeta ni realices transferencias. Para cobrar realmente integraremos una pasarela de pago segura y validación del pedido en un servidor.</div><form id="checkoutForm" onsubmit="submitCheckout(event)"><div class="form-grid" style="margin-top:18px"><label class="wide">Modalidad<select name="type" required><option value="reserva">Reservar por S/ 500</option><option value="total">Solicitar compra completa · ${usd(c.price)}</option></select></label><label>Nombre y apellidos<input name="name" required maxlength="100" autocomplete="name"></label><label>Celular<input name="phone" required maxlength="25" inputmode="tel" autocomplete="tel"></label><label class="wide">Correo electrónico<input name="email" type="email" required maxlength="120" autocomplete="email"></label><label class="wide"><input type="checkbox" name="consent" required style="width:auto"> Acepto ser contactado para coordinar esta solicitud. Entiendo que todavía no estoy realizando un pago.</label></div><p><button type="submit">Registrar solicitud sin pagar</button></p></form>`;openModal('checkoutModal')}
-function submitCheckout(e){e.preventDefault();let c=cars.find(x=>x.id===checkoutCar);if(!c)return;let d=Object.fromEntries(new FormData(e.target).entries());let ref='AT-'+Date.now().toString(36).toUpperCase();let o={ref,vehicle:`${c.brand} ${c.model} ${c.year}`,vehicleId:c.id,type:d.type,name:d.name.trim(),phone:d.phone.trim(),email:d.email.trim(),status:'Pendiente de contacto',created:new Date().toISOString()};orders.push(o);save();document.getElementById('checkoutContent').innerHTML=`<h3>Solicitud registrada: ${esc(ref)}</h3><p>Has solicitado ${o.type==='reserva'?'una reserva por S/ 500':'la compra completa'} de <b>${esc(o.vehicle)}</b>.</p><div class="checkout-alert">No se ha cobrado ningún importe. Esta solicitud solo está guardada en este navegador y aún no se ha enviado a AutoTrust.</div><p><button onclick="sendOrderWhatsApp('${ref}')">Enviar solicitud a AutoTrust por WhatsApp</button> <button class="outline" onclick="closeModal('checkoutModal')">Cerrar</button></p>`}
-function sendOrderWhatsApp(ref){let o=orders.find(x=>x.ref===ref);if(!o)return;if(!config.whatsapp){alert('AutoTrust todavía no ha configurado su WhatsApp. Guarda tu número de solicitud: '+ref);return}let msg=`Hola AutoTrust, deseo ${o.type==='reserva'?'reservar por S/ 500':'comprar'} el vehículo ${o.vehicle}. Solicitud ${ref}. Soy ${o.name}, celular ${o.phone}, correo ${o.email}. ¿Cómo continuamos?`;window.open('https://wa.me/'+config.whatsapp.replace(/\D/g,'')+'?text='+encodeURIComponent(msg),'_blank','noopener')}
+;closeModal('detailModal');document.getElementById('checkoutContent').innerHTML=`<p><b>${esc(c.brand)} ${esc(c.model)} ${esc(c.year)}</b> · ${usd(c.price)} / aprox. ${pen(c.price)}</p><div class="purchase-options"><div class="purchase-choice"><h3>Reservar</h3><p>Separación referencial: <b>S/ 500</b></p><small>El saldo se coordina con AutoTrust.</small></div><div class="purchase-choice"><h3>Compra completa</h3><p><b>${usd(c.price)}</b></p><small>Solicitud para pagar el valor total.</small></div></div><div class="checkout-alert"><b>Versión de prueba: no se procesan ni cobran pagos.</b> Al continuar se preparará un mensaje de WhatsApp. Debes pulsar Enviar en WhatsApp para que AutoTrust reciba tu solicitud. No ingreses datos de tarjeta ni realices transferencias sin verificar las instrucciones de la empresa. Para cobrar realmente integraremos una pasarela de pago segura y validación del pedido en un servidor.</div><form id="checkoutForm" onsubmit="submitCheckout(event)"><div class="form-grid" style="margin-top:18px"><label class="wide">Modalidad<select name="type" required><option value="reserva">Reservar por S/ 500</option><option value="total">Solicitar compra completa · ${usd(c.price)}</option></select></label><label>Nombre y apellidos<input name="name" required maxlength="100" autocomplete="name"></label><label>Celular<input name="phone" required maxlength="25" inputmode="tel" autocomplete="tel"></label><label class="wide">Correo electrónico<input name="email" type="email" required maxlength="120" autocomplete="email"></label><label class="wide"><input type="checkbox" name="consent" required style="width:auto"> Acepto ser contactado para coordinar esta solicitud. Entiendo que todavía no estoy realizando un pago.</label></div><p><button type="submit">Continuar por WhatsApp (sin pagar)</button></p></form>`;openModal('checkoutModal')}
+function submitCheckout(e){
+  e.preventDefault();
+  const c=cars.find(x=>x.id===checkoutCar);
+  if(!c || (c.status||'Disponible')!=='Disponible')return alert('Este vehículo ya no está disponible para solicitudes.');
+  const numero=String(config.whatsapp||'').replace(/\D/g,'');
+  if(!numero)return alert('El WhatsApp de AutoTrust no está disponible. Intenta nuevamente más tarde.');
+  const f=e.target, d=Object.fromEntries(new FormData(f).entries());
+  const nombre=String(d.name||'').trim(), telefono=String(d.phone||'').trim(), correo=String(d.email||'').trim();
+  if(!nombre||!telefono||!correo||!f.reportValidity())return;
+  const ref='AT-'+Date.now().toString(36).toUpperCase();
+  const modalidad=d.type==='reserva'?'solicitar una reserva (separación referencial S/ 500)':'solicitar la compra completa';
+  const msg=['Hola, AutoTrust Premium.','Quiero '+modalidad+'.',
+    'Vehículo: '+c.brand+' '+c.model+' '+c.year,
+    'Precio anunciado: '+usd(c.price),
+    'Referencia: '+ref,'Nombre: '+nombre,'Celular: '+telefono,'Correo: '+correo,
+    'Entiendo que este mensaje no confirma una reserva ni constituye un pago.',
+    '¿Podrían indicarme los siguientes pasos?'].join('\n');
+  const enlace='https://wa.me/'+numero+'?text='+encodeURIComponent(msg);
+  const a=document.createElement('a');a.href=enlace;a.target='_blank';a.rel='noopener noreferrer';
+  a.click();
+  document.getElementById('checkoutContent').innerHTML=`<h3>Solicitud preparada: ${esc(ref)}</h3><p>Para que AutoTrust la reciba, <b>envía el mensaje en WhatsApp</b>. La solicitud no queda registrada automáticamente en el panel.</p><div class="checkout-alert">No se ha realizado ningún pago ni se ha reservado el vehículo. AutoTrust confirmará los siguientes pasos directamente.</div><p><a class="btn" href="${esc(enlace)}" target="_blank" rel="noopener noreferrer">Abrir WhatsApp y enviar</a> <button class="outline" onclick="closeModal('checkoutModal')">Cerrar</button></p>`;
+}
 function setOrderStatus(ref,status){let o=orders.find(x=>x.ref===ref);if(o&&['Pendiente de contacto','En revisión','Cancelada','Finalizada presencialmente'].includes(status)){o.status=status;save();adminHome()}}
 function openAdmin(){adminHome();openModal('adminModal')}
 function adminHome() {
@@ -2082,7 +2135,7 @@ function adminHome() {
       ${tarjeta("Disponibles", disponibles, "✓")}
       ${tarjeta("Reservados", reservados, "📅")}
       ${tarjeta("Vendidos", vendidos, "🏁")}
-      ${tarjeta("Solicitudes pendientes", pendientes, "📋")}
+      ${tarjeta("Solicitudes locales antiguas", pendientes, "📋")}
     </div>
 
     <h3>Configuración del negocio</h3>
@@ -2175,8 +2228,7 @@ function adminHome() {
     <h3>Solicitudes de compra y reserva (${orders.length})</h3>
 
     <p class="note">
-      Las solicitudes se almacenan localmente.
-      No representan pagos confirmados.
+      Historial antiguo guardado únicamente en este navegador. Las nuevas solicitudes se envían por WhatsApp y no aparecen automáticamente aquí. Ninguna solicitud representa un pago confirmado.
     </p>
 
     <div class="admin-list">
@@ -2911,6 +2963,8 @@ hacerFotoPrincipal=async function(id,i){if(!await atRequire())return;const c=car
 eliminarFotoVehiculo=async function(id,i){if(!await atRequire())return;const c=cars.find(x=>x.id===id);if(!c||c.photos.length<=1)return alert('Debe quedar al menos una fotografía.');if(!confirm('¿Quitar esta fotografía del catálogo?'))return;const fotos=c.photos.filter((_,j)=>j!==i);if(await atWrite(id,{fotos}))administrarFotos(id);};
 importData=async function(){alert('La importación masiva está deshabilitada en la versión en línea. Publica los vehículos desde el formulario.');};
 /* Configuración compartida: Supabase es la fuente de verdad en todos los dispositivos. */
+config.whatsapp=''; // El número público siempre procede de Supabase.
+
 async function atLoadConfig(){
   if(!atDB)return;
   const {data,error}=await atDB.from('configuracion').select('whatsapp,tipo_cambio').eq('id',1).maybeSingle();
@@ -2935,5 +2989,17 @@ saveSettings=async function(){
   alert('Configuración guardada para todos los dispositivos.');
 };
 window.addEventListener('load',async()=>{await atLoadConfig();await atRefresh();});
+</script>
+<script>
+/* Indicador discreto de conectividad (no altera datos). */
+(function(){
+  const el=document.createElement('div');el.id='at-connection';
+  el.setAttribute('role','status');
+  el.style.cssText='position:fixed;bottom:12px;left:12px;z-index:10000;background:#7e312d;color:white;padding:9px 14px;border-radius:9px;font:600 12px Arial;box-shadow:0 4px 15px #0009;display:none';
+  el.textContent='Sin conexión a Internet. Los cambios no se sincronizarán.';
+  document.body.appendChild(el);
+  function update(){el.style.display=navigator.onLine?'none':'block'}
+  window.addEventListener('online',update);window.addEventListener('offline',update);update();
+})();
 </script>
 </body></html>
